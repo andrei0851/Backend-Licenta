@@ -6,16 +6,12 @@ using System.Threading.Tasks;
 
 namespace Backend.Entities.Models
 {
-    public class Post
+    public class VehicleType
     {
         [Key]
         public long Id { get; set; }
-        public string UserName { get; set; }
-        public string text { get; set; }
-        public string imageLink { get; set; }
 
-        public int Likes { get; set; }       
-
-
+        [Required]
+        public string type { get; set; }
     }
 }

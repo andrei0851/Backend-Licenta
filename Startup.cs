@@ -17,7 +17,6 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.AspNetCore.Cors;
 
-
 namespace Backend
 {
     public class Startup
@@ -46,9 +45,16 @@ namespace Backend
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Jwt:Key"]))
                 };
             });
-            services.AddCors();
+            services.AddCors(options =>
+            {
+                options.AddPolicy(name: "_myAllowSpecificOrigins",
+                                  policy =>
+                                  {
+                                      policy.WithOrigins("*");
+                                  });
+            });
             services.AddMvc();
-            services.AddDbContext<BackendContext>(options => options.UseSqlServer("Server=localhost;Database=Backend;Trusted_Connection=True;"));
+            services.AddDbContext<BackendContext>(options => options.UseSqlServer("Server=localhost,1433\\Catalog=Backend;Database=Backend;User=sa;Password=2Fd7b0a7!;MultipleActiveResultSets=True;"));
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson(options =>
             options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore

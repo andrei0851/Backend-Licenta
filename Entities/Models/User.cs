@@ -12,17 +12,37 @@ namespace Backend.Entities.Models
     {
         [Key]
         public long Id { get; set; }
-        public string UserName { get; set; }
+        [Required]
+        public string Firstname { get; set; }
+
+        [Required]
+        public string Lastname { get; set; }
+
+        [Required]
+        public string Phonenumber { get; set; }
+
+        [Required]
         public string Email { get; set; }
+        [Required]
         public string PasswordHash { get; set; }
-        public string Gender { get; set; }
+
+        public Boolean isConfirmed { get; set; }
+
+        public string clientURI { get; set; }
+
         public string Role { get; set; }
-        public virtual HashSet<User> Followers { get; set; }
-        public virtual HashSet<User> Following { get; set; }
 
+        public int availableListings { get; set; }
+        
+        public List<Vehicle> Vehicles { get; set; }
+        [ForeignKey("Branch")]
+        public long? branchID { get; set; }
 
-   
+        public virtual Branch branch { get; set; }
+        [ForeignKey("Company")]
+        public long? companyID { get; set; }
+        public virtual Company company { get; set; }
 
-
+        public ProfilePicture profilepicture { get; set; }
     }
 }
